@@ -83,7 +83,7 @@ fun WeatherScreenContent(
                 hourlyForecasts = state.weatherForecast.hourlyForecasts
             )
             DailyWeatherSection(
-                modifier = Modifier.padding(top = 24.dp),
+                modifier = Modifier.padding(top = 24.dp, bottom = 32.dp),
                 dailyForecasts = state.weatherForecast.dailyForecasts
             )
         }
