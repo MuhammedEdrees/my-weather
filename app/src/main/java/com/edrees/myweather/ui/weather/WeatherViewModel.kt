@@ -28,13 +28,16 @@ class WeatherViewModel(
                 locationRepository.getCurrentLocation()
             }.onSuccess { location ->
                     _uiState.update { oldState ->
-                        oldState.copy(currentLocation = location)
+                        oldState.copy(currentLocation = location, errorMessage = null)
                     }
                     fetchWeatherForecast()
                 }.onFailure { error ->
                     Log.e(WeatherViewModel::class.simpleName, "Error fetching current location", error)
                     _uiState.update { oldState ->
-                        oldState.copy(isLoading = false)
+                        oldState.copy(
+                            isLoading = false,
+                            errorMessage = error.message
+                        )
                     }
                 }
             }
@@ -49,12 +52,15 @@ class WeatherViewModel(
             }.onSuccess { forecast ->
                 Log.d(WeatherViewModel::class.simpleName, "fetchWeatherForecast: $forecast")
                 _uiState.update { oldState ->
-                    oldState.copy(isLoading = false, weatherForecast = forecast)
+                    oldState.copy(isLoading = false, weatherForecast = forecast, errorMessage = null)
                 }
             }.onFailure { error ->
                 Log.e(WeatherViewModel::class.simpleName, "Error fetching weather forecast", error)
                 _uiState.update { oldState ->
-                    oldState.copy(isLoading = false)
+                    oldState.copy(
+                        isLoading = false,
+                        errorMessage = error.message
+                    )
                 }
             }
         }

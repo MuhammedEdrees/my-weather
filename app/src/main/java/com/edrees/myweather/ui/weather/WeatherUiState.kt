@@ -6,5 +6,6 @@ import com.edrees.myweather.domain.model.WeatherForecast
 data class WeatherUiState(
     val isLoading: Boolean = true,
     val currentLocation: Location = Location(),
-    val weatherForecast: WeatherForecast = WeatherForecast()
+    val weatherForecast: WeatherForecast = WeatherForecast(),
+    val errorMessage: String? = null,
 )
