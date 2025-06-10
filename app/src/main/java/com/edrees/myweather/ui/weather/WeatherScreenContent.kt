@@ -4,20 +4,17 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.edrees.myweather.domain.model.Weather
@@ -25,9 +22,9 @@ import com.edrees.myweather.domain.model.WeatherForecast
 import com.edrees.myweather.ui.theme.LocalCustomColors
 import com.edrees.myweather.ui.theme.MyWeatherTheme
 import com.edrees.myweather.ui.weather.components.CurrentWeatherDetailsSection
+import com.edrees.myweather.ui.weather.components.CurrentWeatherHeader
 import com.edrees.myweather.ui.weather.components.DailyWeatherSection
 import com.edrees.myweather.ui.weather.components.HourlyWeatherSection
-import com.edrees.myweather.ui.weather.components.WeatherTopBar
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 
@@ -43,7 +40,7 @@ fun WeatherScreenContent(
             scrollState.value > 0 || !isScrollable
         }
     }
-    Scaffold(
+    Column(
         modifier = modifier
             .fillMaxSize()
             .background(
@@ -54,41 +51,30 @@ fun WeatherScreenContent(
                     )
                 )
             )
-            .windowInsetsPadding(WindowInsets.systemBars),
-        containerColor = Color.Transparent,
-        topBar = {
-            WeatherTopBar(
-                modifier = Modifier.padding(top = 24.dp, start = 12.dp, end = 12.dp),
-                isCollapsed = isCollapsed,
-                weatherCondition = state.weatherForecast.currentWeather.condition,
-                currentTemperature = state.weatherForecast.currentWeather.temperature,
-                cityName = state.currentLocation.cityName,
-                isDay = state.weatherForecast.currentWeather.isDay
-            )
-        }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding)
-                .fillMaxWidth()
-                .padding(top = 16.dp)
-                .verticalScroll(scrollState),
-        ) {
-            CurrentWeatherDetailsSection(
-                modifier = Modifier.padding(start = 12.dp, end = 12.dp),
-                currentWeather = state.weatherForecast.currentWeather
-            )
-            HourlyWeatherSection(
-                modifier = Modifier.padding(top = 24.dp),
-                hourlyForecasts = state.weatherForecast.hourlyForecasts
-            )
-            DailyWeatherSection(
-                modifier = Modifier.padding(top = 24.dp, bottom = 32.dp),
-                dailyForecasts = state.weatherForecast.dailyForecasts
-            )
-        }
+            .windowInsetsPadding(WindowInsets.systemBars)
+            .verticalScroll(scrollState),
+    ) {
+        CurrentWeatherHeader(
+            modifier = Modifier.padding(top = 24.dp, start = 12.dp, end = 12.dp),
+            isCollapsed = isCollapsed,
+            weatherCondition = state.weatherForecast.currentWeather.condition,
+            currentTemperature = state.weatherForecast.currentWeather.temperature,
+            cityName = state.currentLocation.cityName,
+            isDay = state.weatherForecast.currentWeather.isDay
+        )
+        CurrentWeatherDetailsSection(
+            modifier = Modifier.padding(top = 16.dp, start = 12.dp, end = 12.dp),
+            currentWeather = state.weatherForecast.currentWeather
+        )
+        HourlyWeatherSection(
+            modifier = Modifier.padding(top = 24.dp),
+            hourlyForecasts = state.weatherForecast.hourlyForecasts
+        )
+        DailyWeatherSection(
+            modifier = Modifier.padding(top = 24.dp, bottom = 32.dp),
+            dailyForecasts = state.weatherForecast.dailyForecasts
+        )
     }
-
 }
 
 

@@ -2,7 +2,6 @@ package com.edrees.myweather.ui.weather.components
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentScope
-import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
@@ -10,8 +9,6 @@ import androidx.compose.animation.SizeTransform
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.togetherWith
@@ -38,7 +35,7 @@ import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun WeatherTopBar(
+fun CurrentWeatherHeader(
     modifier: Modifier = Modifier,
     isCollapsed: Boolean,
     cityName: String,
@@ -200,7 +197,7 @@ private fun WeatherTopBarPreview() {
             delay(2000)
             isCollapsed = false
         }
-        WeatherTopBar(
+        CurrentWeatherHeader(
             isCollapsed = isCollapsed,
             cityName = "San Francisco",
             weatherCondition = Weather.Condition.CLEAR_SKY,
