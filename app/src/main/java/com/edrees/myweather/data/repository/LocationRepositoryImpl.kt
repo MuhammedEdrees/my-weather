@@ -5,6 +5,7 @@ import android.location.Geocoder
 import com.edrees.myweather.domain.model.Location
 import com.edrees.myweather.domain.repository.LocationRepository
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.Priority
 import kotlinx.coroutines.tasks.await
 
 @SuppressLint("MissingPermission")
@@ -13,7 +14,10 @@ class LocationRepositoryImpl(
     private val geocoder: Geocoder
 ) : LocationRepository {
     override suspend fun getCurrentLocation(): Location {
-        val location = fusedLocationProviderClient.lastLocation.await()
+        val location = fusedLocationProviderClient.getCurrentLocation(
+            Priority.PRIORITY_HIGH_ACCURACY,
+            null
+        ).await()
         return location?.let {
             val addresses = geocoder.getFromLocation(
                 location.latitude,
