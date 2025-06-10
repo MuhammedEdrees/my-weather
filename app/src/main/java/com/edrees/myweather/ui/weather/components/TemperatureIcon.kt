@@ -31,7 +31,7 @@ import com.edrees.myweather.ui.utils.toDrawableRes
 @Composable
 fun CurrentTemperatureIcon(
     modifier: Modifier = Modifier,
-    size: Dp = 220.dp,
+    size: Dp = 200.dp,
     weatherCondition: Weather.Condition,
     isDay: Boolean = true
 ) {
@@ -40,14 +40,14 @@ fun CurrentTemperatureIcon(
         contentAlignment = Alignment.Center
     ){
         BlurredCircle(
-            size = size* 1.13f,
+            size = size* 1.25f,
             color = LocalCustomColors.current.backgroundColor3
         )
         Image(
             painter = painterResource(weatherCondition.toDrawableRes(isNight = isDay.not())),
             contentDescription = null,
             contentScale = ContentScale.FillHeight,
-            modifier = Modifier.heightIn(min = size)
+            modifier = Modifier.height(size)
         )
     }
 }

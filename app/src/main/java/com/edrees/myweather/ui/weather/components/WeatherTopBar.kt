@@ -16,6 +16,7 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -149,10 +150,10 @@ private fun ExpandedTopBar(
     currentTemperature: Weather.Temperature
 ) {
     with(sharedTransitionScope) {
-        Column(
+        Box(
             modifier = modifier
                 .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            contentAlignment = Alignment.TopCenter
         ) {
             LocationLabel(
                 modifier = Modifier.sharedBounds(
@@ -160,16 +161,19 @@ private fun ExpandedTopBar(
                     animatedVisibilityScope = animatedVisibilityScope
                 ),cityName = cityName)
             CurrentTemperatureIcon(
-                modifier = Modifier.sharedBounds(
+                modifier = Modifier
+                    .padding(top = 12.dp)
+                    .sharedBounds(
                     rememberSharedContentState(key = CONDITION_ICON_KEY),
                     animatedVisibilityScope = animatedVisibilityScope
                 ),
-                size = 220.dp,
+                size = 200.dp,
                 isDay = isDay,
                 weatherCondition = weatherCondition
             )
             TemperatureInfoSection(
                 modifier = Modifier
+                    .padding(top = 248.dp)
                     .width(168.dp)
                     .sharedBounds(
                         rememberSharedContentState(key = TEMPERATURE_INFO_KEY),
